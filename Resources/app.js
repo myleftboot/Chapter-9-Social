@@ -37,7 +37,7 @@ Ti.Facebook.addEventListener('login', function(e) {
     }
 });
 
-function sendScreenshot(data) {
+function facebookScreenshot(data) {
 	// construct the photo object
 	var thePhoto = {
     		message: 'My randomly placed squares',
@@ -56,26 +56,72 @@ function sendScreenshot(data) {
 	});
 }
 
-function captureScreen() {
+function captureScreenForFacebook() {
 	Ti.Media.takeScreenshot(function(e)
 	{
 		// The media property of the object passed in contains the screenshot
-		sendScreenshot(e.media);
+		facebookScreenshot(e.media);
 
 	});
 }
 
-var sendScreen = Ti.UI.createButton({
-	top:0, 
+var facebookBtn = Ti.UI.createButton({
 	title:'Facebook Screen'
 });
 
-sendScreen.addEventListener('click', function(e) {
+facebookBtn.addEventListener('click', function(e) {
 	//
-	captureScreen();
+	captureScreenForFacebook();
 });
 
-win1.add(sendScreen);
+
+function tweetScreenshot(_args) {
+	
+	var social = require('social');
+	
+	var twitter = social.create({
+	    consumerSecret : 'mKYQH8ZzkuRKe0BBADETSZeCLpTG9rxRgTVS3ApJvo',
+	    consumerKey : '7KsREmQQ5Xpf91gBQXYaw'
+	});
+
+    twitter.share({
+        message : "More random blocks",
+        image : _args,
+        success : function() {
+            alert('Tweeted!');
+        },
+        error : function(e) {
+            alert('ERROR'+e);
+        }
+    });
+}
+
+function captureScreenForTwitter() {
+	Ti.Media.takeScreenshot(function(e)
+	{
+		// The media property of the object passed in contains the screenshot
+		tweetScreenshot(e.media);
+
+	});
+}
+
+var twitterBtn = Ti.UI.createButton({
+	title:'Tweet Screen'
+});
+
+twitterBtn.addEventListener('click', function(e) {
+	//
+	captureScreenForTwitter();
+});
+
+var socialVw = Ti.UI.createView({
+	top:0,
+	height:Ti.UI.SIZE,
+	layout:'horizontal'
+})
+socialVw.add(facebookBtn);
+socialVw.add(twitterBtn);
+win1.add(socialVw);
 win1.open();
 
 Ti.Facebook.authorize();

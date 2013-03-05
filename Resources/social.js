@@ -1172,7 +1172,7 @@ var supportedSites = {
         accessToken: 'https://api.twitter.com/oauth/access_token',
         requestToken: 'https://api.twitter.com/oauth/request_token',
         authorize: 'https://api.twitter.com/oauth/authorize?',
-        update: 'https://api.twitter.com/1/statuses/update.json'
+        update: 'https://api.twitter.com/1.1/statuses/update.json'
     }
 };
  
