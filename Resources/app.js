@@ -1,9 +1,5 @@
 // All source code Copyright 2013 Cope Consultancy Services. All rights reserved
 
-
-// this sets the background color of the master UIView (when there are no windows/tab groups on it)
-Titanium.UI.setBackgroundColor('#000');
-
 // create base root window
 //
 var win1 = Titanium.UI.createWindow({  
@@ -42,9 +38,12 @@ Ti.Facebook.addEventListener('login', function(e) {
 });
 
 function sendScreenshot(data) {
-	alert('sending screen');
-	Ti.Facebook.requestWithGraphPath('me/photos', data, 'POST', function(e){
-		alert('e'+e);
+	// construct the photo object
+	var thePhoto = {
+    		message: 'My randomly placed squares',
+    		picture: data
+	};
+	Ti.Facebook.requestWithGraphPath('me/photos', thePhoto, 'POST', function(e){
 	    if (e.success) {
 	        alert("Success!  From FB: " + e.result);
 	    } else {
@@ -58,9 +57,9 @@ function sendScreenshot(data) {
 }
 
 function captureScreen() {
-	var data = Ti.Media.takeScreenshot(function(e)
+	Ti.Media.takeScreenshot(function(e)
 	{
-		// set the media attribute contains the screenshot
+		// The media property of the object passed in contains the screenshot
 		sendScreenshot(e.media);
 
 	});
