@@ -26,14 +26,12 @@ for (var i=0; i<5; i++) {
 
 // now lets add some buttons to send the screen to facebook
 Ti.Facebook.appid = '469401486460863';
-Ti.Facebook.permissions = ['publish_stream']; // Permissions your app needs
+Ti.Facebook.permissions = ['publish_stream'];
 Ti.Facebook.addEventListener('login', function(e) {
-    if (e.success) {
-        alert('Logged In');
-    } else if (e.error) {
+    if (e.error) {
         alert(e.error);
     } else if (e.cancelled) {
-        alert("Canceled");
+        alert("Cancelled");
     }
 });
 
@@ -50,7 +48,7 @@ function facebookScreenshot(data) {
 	        if (e.error) {
 	            alert(e.error);
 	        } else {
-	            alert("Unkown result");
+	            alert("Unknown result");
 	        }
 	    }
 	});
