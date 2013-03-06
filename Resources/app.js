@@ -9,7 +9,7 @@ var win1 = Titanium.UI.createWindow({
 // get the width and top once, so we only cross over the bridge once
 var height = Ti.Platform.displayCaps.platformHeight,
 	width = Ti.Platform.displayCaps.platformWidth;
-	
+
 // add some random boxes on the screen, reuse the vews from stopprogress
 for (var i=0; i<5; i++) {
 	var randomPosView = Ti.UI.createView({
@@ -20,7 +20,7 @@ for (var i=0; i<5; i++) {
 	left: Math.random() * width,
 	top:Math.random() * height
 	});
-	
+
 	win1.add(randomPosView);
 }
 
@@ -75,18 +75,17 @@ facebookBtn.addEventListener('click', function(e) {
 });
 
 
-function tweetScreenshot(_args) {
-	
+function tweetUpdate(_args) {
+
 	var social = require('social');
-	
+
 	var twitter = social.create({
-	    consumerSecret : 'mKYQH8ZzkuRKe0BBADETSZeCLpTG9rxRgTVS3ApJvo',
-	    consumerKey : '7KsREmQQ5Xpf91gBQXYaw'
+	    consumerSecret : '<<YOUR CONSUMER SECRET>>',
+	    consumerKey : '<<YOUR CONSUMER KEY>>'
 	});
 
     twitter.share({
         message : "More random blocks",
-        image : _args,
         success : function() {
             alert('Tweeted!');
         },
@@ -96,22 +95,14 @@ function tweetScreenshot(_args) {
     });
 }
 
-function captureScreenForTwitter() {
-	Ti.Media.takeScreenshot(function(e)
-	{
-		// The media property of the object passed in contains the screenshot
-		tweetScreenshot(e.media);
-
-	});
-}
 
 var twitterBtn = Ti.UI.createButton({
-	title:'Tweet Screen'
+	title:'Send Tweet'
 });
 
 twitterBtn.addEventListener('click', function(e) {
 	//
-	captureScreenForTwitter();
+	tweetUpdate();
 });
 
 var socialVw = Ti.UI.createView({
